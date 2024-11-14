@@ -1,15 +1,21 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
-import AddProduct from "./components/AddProduct";
+import SupplierList from "./components/SupplierList";
+import History from "./components/History"; // Importa a página de histórico
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="/add-product" element={<AddProduct />} />
-      </Routes>
+      <Navbar />
+      <div className="p-4">
+        <Routes>
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/suppliers" element={<SupplierList />} />
+          <Route path="/history" element={<History />} /> {/* Nova rota */}
+        </Routes>
+      </div>
     </Router>
   );
 };

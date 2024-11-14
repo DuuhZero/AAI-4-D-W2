@@ -14,10 +14,21 @@ generator client {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String
   price       Float
   quantity    Int
+  supplierId  Int
+  supplier    Supplier  @relation(fields: [supplierId], references: [id])
+}
+
+model Supplier {
+  id          Int       @id @default(autoincrement())
+  name        String
+  cnpj        String    @unique
+  email       String    @unique
+  phone       String    @unique
+  products    Product[] // Adiciona essa linha para criar a relação inversa
 }
 
