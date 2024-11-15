@@ -176,9 +176,9 @@ const SupplierList = () => {
           <tbody>
             {displayedSuppliers.map((supplier) => (
               <tr key={supplier.id} className="border-b">
-                <td className="p-2 text-center">{supplier.name}</td>
+                <td className="p-2 text-center truncate max-w-[100px]">{supplier.name}</td>
                 <td className="p-2 text-center">{supplier.cnpj}</td>
-                <td className="p-2 text-center">{supplier.email}</td>
+                <td className="p-2 text-center truncate max-w-[100px]">{supplier.email}</td>
                 <td className="p-2 text-center">{supplier.phone}</td>
                 <td className="p-2 text-center">
                   <button
