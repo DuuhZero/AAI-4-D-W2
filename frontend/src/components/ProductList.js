@@ -146,8 +146,8 @@ const ProductList = () => {
   };
 
   return (
-    <div className="p-10 bg-gray-100 h-[43vw] overflow-hidden shadow-md rounded flex flex-row gap-10 items-center">
-      <div className="bg-white shadow-lg w-[40vw] rounded-lg p-8 mb-10">
+    <div className="p-10 bg-gray-100 h-[43vw] overflow-hidden shadow-md rounded flex flex-row gap-10 items-start">
+      <div className="bg-white shadow-lg w-[45%] rounded-lg p-8 mb-10">
         <h1 className="text-3xl font-bold text-yellow-500 mb-6">Produtos</h1>
         <form onSubmit={handleAddOrUpdateProduct} className="space-y-4">
           <input
@@ -208,9 +208,10 @@ const ProductList = () => {
           </button>
         </form>
       </div>
-      <div className="flex flex-col max-w-[50vw] mt-5">
-        <table className="bg-white shadow-lg rounded-lg overflow-hidden ">
-          <thead className="bg-yellow-400 text-white sticky">
+
+      <div className="bg-white shadow-lg w-[50%] rounded-lg p-8">
+        <table className="w-full">
+          <thead className="bg-yellow-400 text-white">
             <tr>
               <th className="p-3">Nome</th>
               <th className="p-3">Descrição</th>
@@ -220,16 +221,15 @@ const ProductList = () => {
               <th className="p-3">Ações</th>
             </tr>
           </thead>
-          <tbody className="">
+          <tbody>
             {displayedProducts.map((product) => (
               <tr key={product.id} className="border-b">
-                <td className="p-3 text-center">{product.name}</td>
-                <td className="p-3 text-center">{product.description}</td>
+                <td className="p-3 text-center truncate max-w-[100px]">{product.name}</td>
+                <td className="p-3 text-center truncate max-w-[150px]">{product.description}</td>
                 <td className="p-3 text-center">{product.price}</td>
                 <td className="p-3 text-center">{product.quantity}</td>
                 <td className="p-3 text-center">
-                  {suppliers.find((s) => s.id === product.supplierId)?.name ||
-                    "Desconhecido"}
+                  {suppliers.find((s) => s.id === product.supplierId)?.name || "Desconhecido"}
                 </td>
                 <td className="p-3 text-center">
                   <button
@@ -254,7 +254,10 @@ const ProductList = () => {
             <button
               key={index + 1}
               onClick={() => handlePageChange(index + 1)}
-              className={`px-4 py-2 rounded ${currentPage === index + 1 ? "bg-yellow-400 text-white" : "bg-gray-200 text-gray-700"} hover:bg-yellow-500 transition duration-200`}
+              className={`px-4 py-2 rounded ${currentPage === index + 1
+                  ? "bg-yellow-400 text-white"
+                  : "bg-gray-200 text-gray-700"
+                } hover:bg-yellow-500 transition duration-200`}
             >
               {index + 1}
             </button>

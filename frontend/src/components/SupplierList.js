@@ -114,8 +114,8 @@ const SupplierList = () => {
   };
 
   return (
-    <div className="p-10 bg-gray-100 h-[43vw] overflow-hidden shadow-md rounded flex flex-row gap-10 items-center">
-      <div className="bg-white shadow-lg w-[40vw] rounded-lg p-8 mb-10">
+    <div className="p-10 bg-gray-100 h-[43vw] overflow-hidden shadow-md rounded flex flex-row gap-10 items-start">
+      <div className="bg-white shadow-lg w-[45%] rounded-lg p-8 mb-10">
         <h1 className="text-3xl font-bold text-yellow-500 mb-6">Fornecedores</h1>
         <form onSubmit={handleAddOrUpdateSupplier} className="space-y-4">
           <input
@@ -162,9 +162,9 @@ const SupplierList = () => {
           </button>
         </form>
       </div>
-      <div className="flex flex-col max-w-[50vw] mt-5">
-        <table className="bg-white shadow-lg rounded-lg overflow-hidden ">
-          <thead className="bg-yellow-500 text-white sticky">
+      <div className="bg-white shadow-lg w-[55%] rounded-lg p-8">
+        <table className="w-full">
+          <thead className="bg-yellow-400 text-white">
             <tr>
               <th className="p-3">Nome</th>
               <th className="p-3">CNPJ</th>
@@ -176,11 +176,11 @@ const SupplierList = () => {
           <tbody>
             {displayedSuppliers.map((supplier) => (
               <tr key={supplier.id} className="border-b">
-                <td className="p-3 text-center">{supplier.name}</td>
-                <td className="p-3 text-center">{supplier.cnpj}</td>
-                <td className="p-3 text-center">{supplier.email}</td>
-                <td className="p-3 text-center">{supplier.phone}</td>
-                <td className="p-3 text-center">
+                <td className="p-2 text-center">{supplier.name}</td>
+                <td className="p-2 text-center">{supplier.cnpj}</td>
+                <td className="p-2 text-center">{supplier.email}</td>
+                <td className="p-2 text-center">{supplier.phone}</td>
+                <td className="p-2 text-center">
                   <button
                     onClick={() => {
                       setEditingSupplier(supplier.id);
