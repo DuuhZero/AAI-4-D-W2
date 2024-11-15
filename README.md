@@ -2,6 +2,7 @@ Para rodar o BACKEND:
 ```
 cd backend
 npm i
+npx prisma generate
 npx prisma migrate dev
 node server.js
 ```

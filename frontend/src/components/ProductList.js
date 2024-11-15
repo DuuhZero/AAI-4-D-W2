@@ -12,7 +12,8 @@ const ProductList = () => {
     quantity: "",
     supplierId: "",
   });
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 7;
   // Buscar produtos
   useEffect(() => {
     axios
@@ -37,6 +38,15 @@ const ProductList = () => {
       });
   }, []);
 
+  const totalPages = Math.ceil(products.length / itemsPerPage)
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page)
+  }
+  const displayedProducts = products.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
   // Função para deletar um produto
   const handleDelete = (id) => {
     axios
@@ -136,87 +146,121 @@ const ProductList = () => {
   };
 
   return (
-    <div>
-      <h1>Produtos</h1>
-
-      <form onSubmit={handleAddOrUpdateProduct}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Nome do produto"
-          value={newProduct.name}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Descrição"
-          value={newProduct.description}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="price"
-          placeholder="Preço"
-          value={newProduct.price}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="number"
-          name="quantity"
-          placeholder="Quantidade"
-          value={newProduct.quantity}
-          onChange={handleInputChange}
-          required
-        />
-
-        <select
-          name="supplierId"
-          value={newProduct.supplierId}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="">Selecione um fornecedor</option>
-          {suppliers.map((supplier) => (
-            <option key={supplier.id} value={supplier.id}>
-              {supplier.name}
-            </option>
-          ))}
-        </select>
-
-        <button type="submit">{newProduct.id ? "Atualizar Produto" : "Adicionar Produto"}</button>
-      </form>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Fornecedor</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.price}</td>
-              <td>{product.quantity}</td>
-              <td>{suppliers.find((s) => s.id === product.supplierId)?.name || "Desconhecido"}</td>
-              <td>
-                <button onClick={() => handleEditProduct(product.id)}>Editar</button>
-                <button onClick={() => handleDelete(product.id)}>Deletar</button>
-              </td>
+    <div className="p-10 bg-gray-100 h-[43vw] overflow-hidden shadow-md rounded flex flex-row gap-10 items-center">
+      <div className="bg-white shadow-lg w-[40vw] rounded-lg p-8 mb-10">
+        <h1 className="text-3xl font-bold text-yellow-500 mb-6">Produtos</h1>
+        <form onSubmit={handleAddOrUpdateProduct} className="space-y-4">
+          <input
+            className="w-full px-4 py-3 border border-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            type="text"
+            name="name"
+            placeholder="Nome do produto"
+            value={newProduct.name}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            className="w-full px-4 py-3 border border-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            type="text"
+            name="description"
+            placeholder="Descrição"
+            value={newProduct.description}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            className="w-full px-4 py-3 border border-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            type="number"
+            name="price"
+            placeholder="Preço"
+            value={newProduct.price}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            className="w-full px-4 py-3 border border-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            type="number"
+            name="quantity"
+            placeholder="Quantidade"
+            value={newProduct.quantity}
+            onChange={handleInputChange}
+            required
+          />
+          <select
+            name="supplierId"
+            className="w-full px-4 py-3 border border-yellow-500 rounded focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={newProduct.supplierId}
+            onChange={handleInputChange}
+            required
+          >
+            <option value="">Selecione um fornecedor</option>
+            {suppliers.map((supplier) => (
+              <option key={supplier.id} value={supplier.id}>
+                {supplier.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="w-full py-3 bg-yellow-400 text-white font-semibold rounded hover:bg-yellow-500 transition duration-200"
+          >
+            {newProduct.id ? "Atualizar Produto" : "Adicionar Produto"}
+          </button>
+        </form>
+      </div>
+      <div className="flex flex-col max-w-[50vw] mt-5">
+        <table className="bg-white shadow-lg rounded-lg overflow-hidden ">
+          <thead className="bg-yellow-400 text-white sticky">
+            <tr>
+              <th className="p-3">Nome</th>
+              <th className="p-3">Descrição</th>
+              <th className="p-3">Preço</th>
+              <th className="p-3">Quantidade</th>
+              <th className="p-3">Fornecedor</th>
+              <th className="p-3">Ações</th>
             </tr>
+          </thead>
+          <tbody className="">
+            {displayedProducts.map((product) => (
+              <tr key={product.id} className="border-b">
+                <td className="p-3 text-center">{product.name}</td>
+                <td className="p-3 text-center">{product.description}</td>
+                <td className="p-3 text-center">{product.price}</td>
+                <td className="p-3 text-center">{product.quantity}</td>
+                <td className="p-3 text-center">
+                  {suppliers.find((s) => s.id === product.supplierId)?.name ||
+                    "Desconhecido"}
+                </td>
+                <td className="p-3 text-center">
+                  <button
+                    onClick={() => handleEditProduct(product.id)}
+                    className="px-4 py-2 text-yellow-500 font-semibold hover:text-yellow-600 transition duration-200"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    onClick={() => handleDelete(product.id)}
+                    className="px-4 py-2 text-red-500 font-semibold hover:text-red-600 transition duration-200 ml-2"
+                  >
+                    Deletar
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="flex justify-center mt-4 space-x-2">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={`px-4 py-2 rounded ${currentPage === index + 1 ? "bg-yellow-400 text-white" : "bg-gray-200 text-gray-700"} hover:bg-yellow-500 transition duration-200`}
+            >
+              {index + 1}
+            </button>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };
