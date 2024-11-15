@@ -228,7 +228,7 @@ const ProductList = () => {
                 <td className="p-3 text-center truncate max-w-[150px]">{product.description}</td>
                 <td className="p-3 text-center">{product.price}</td>
                 <td className="p-3 text-center">{product.quantity}</td>
-                <td className="p-3 text-center">
+                <td className="p-3 text-center truncate max-w-[100px]">
                   {suppliers.find((s) => s.id === product.supplierId)?.name || "Desconhecido"}
                 </td>
                 <td className="p-3 text-center">
